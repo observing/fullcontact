@@ -15,14 +15,15 @@ var slice = Array.prototype.slice;
 function FullContact(api) {
   if (!(this instanceof FullContact)) return new FullContact(api);
 
-  this.key = api;       // API key
+  this.key = api;         // API key
+  this.version = 'v2';    // API version
 
   this.remaining = 0;     // How many API calls are remaining
   this.ratelimit = 0;     // The amount of API calls allowed
   this.ratereset = 0;     // In how many seconds is the rate limit reset
 
   this.queueing = false;  // Should we be queueing requests
-  this.requests = [];        // Stores all queued commands.
+  this.requests = [];     // Stores all queued commands
 }
 
 /**
@@ -164,7 +165,7 @@ FullContact.prototype.exec = function exec(fn) {
 
   request({
     method: 'POST',
-    uri: 'https://api.fullcontact.com/v2/batch.json',
+    uri: 'https://api.fullcontact.com/'+ this.version +'/batch.json',
     qs: { apiKey: this.key },
     json: {
       requests: requests.map(function urlsonly(data) {
@@ -231,13 +232,23 @@ FullContact.createClient = function createClient(api) {
 //
 // Expose the endpoints.
 //
-FullContact.Person = require('./endpoints/person');
-FullContact.Name   = require('./endpoints/name');
+FullContact.Location = require('./endpoints/location');
+FullContact.Person   = require('./endpoints/person');
+FullContact.Email    = require('./endpoints/email');
+FullContact.Name     = require('./endpoints/name');
 
 //
 // Lazy load the various of endpoints so they only get initialized when we
 // actually need them.
 //
+FullContact.define(FullContact.prototype, 'location', function define() {
+  return new FullContact.Location(this);
+});
+
+FullContact.define(FullContact.prototype, 'email', function define() {
+  return new FullContact.Email(this);
+});
+
 FullContact.define(FullContact.prototype, 'person', function define() {
   return new FullContact.Person(this);
 });

@@ -1,9 +1,16 @@
 'use strict';
 
+/**
+ * Access the name API.
+ *
+ * @constructor
+ * @param {FullContact} api Reference to the FullContact wrapping instance.
+ * @api public
+ */
 function Name(api) {
   this.api = api;
 
-  this.endpoint = 'https://api.fullcontact.com/v2/name/';
+  this.endpoint = 'https://api.fullcontact.com/'+ api.version +'/name/';
   this.send = api.process.bind(api, this);
 }
 
@@ -21,7 +28,7 @@ Name.prototype.normalize = function normalize() {
   var args = this.api.args(arguments, 'casing');
 
   //
-  // Add a custom endpoint
+  // Add a custom endpoint.
   //
   args.endpoint = this.endpoint +'normalizer.json';
 
@@ -44,7 +51,7 @@ Name.prototype.deducer = function deducer() {
   var args = this.api.args(arguments, 'casing');
 
   //
-  // Add a custom endpoint
+  // Add a custom endpoint.
   //
   args.endpoint = this.endpoint +'deducer.json';
 
@@ -66,7 +73,7 @@ Name.prototype.similarity = function similarity() {
   var args = this.api.args(arguments, 'q2', 'casing');
 
   //
-  // Add a custom endpoint
+  // Add a custom endpoint.
   //
   args.endpoint = this.endpoint +'similarity.json';
 
@@ -91,7 +98,7 @@ Name.prototype.stats = function stats() {
   var args = this.api.args(arguments, 'casing');
 
   //
-  // Add a custom endpoint
+  // Add a custom endpoint.
   //
   args.endpoint = this.endpoint +'stats.json';
 
@@ -113,7 +120,7 @@ Name.prototype.parser = function parser() {
   var args = this.api.args(arguments, 'casing');
 
   //
-  // Add a custom endpoint
+  // Add a custom endpoint.
   //
   args.endpoint = this.endpoint +'parser.json';
 

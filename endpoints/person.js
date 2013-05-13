@@ -12,7 +12,7 @@ var crypto = require('crypto');
 function Person(api) {
   this.api = api;
 
-  this.endpoint = 'https://api.fullcontact.com/v2/person.json';
+  this.endpoint = 'https://api.fullcontact.com/'+ api.version +'/person.json';
   this.send = api.process.bind(api, this);
 }
 
