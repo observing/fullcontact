@@ -69,9 +69,9 @@ FullContact.prototype.request = function req(packet, args) {
     , self = this;
 
   request(packet, function requested(err, res, body) {
-    self.ratereset = +res.headers['X-Rate-Limit-Reset'];
-    self.ratelimit = +res.headers['X-Rate-Limit-Limit'];
-    self.remaining = +res.headers['X-Rate-Limit-Remaining'];
+    self.ratereset = +res.headers['X-Rate-Limit-Reset'] || self.ratereste;
+    self.ratelimit = +res.headers['X-Rate-Limit-Limit'] || self.ratelimit;
+    self.remaining = +res.headers['X-Rate-Limit-Remaining'] || self.remaining;
 
     if (err) return fn(err);
 
@@ -96,6 +96,8 @@ FullContact.prototype.request = function req(packet, args) {
 
       return fn(err);
     }
+
+    fn(undefined, body);
   });
 
   return this;
@@ -207,8 +209,9 @@ FullContact.prototype.args = function parser(args) {
  */
 FullContact.define = function define(where, name, fn) {
   Object.defineProperty(where, name, {
+    configurable: true,
     get: function get() {
-      return where[name] = fn();
+      return where[name] = fn.call(this);
     },
     set: function set(value) {
       Object.defineProperty(where, name, {
