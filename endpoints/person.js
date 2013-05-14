@@ -27,6 +27,23 @@ function Person(api) {
  * @api public
  */
 Person.prototype.email = function email() {
+  var args = this.api.args(arguments, 'queue');
+
+  this.send({ email: args.value }, args);
+  return this;
+};
+
+/**
+ * Retrieve contact information by e-mail which is transformed to an MD5.
+ *
+ * ```js
+ * fullcontact.person.md5('opensource@observe.it', [queue], fn);
+ * ```
+ *
+ * @returns {Person}
+ * @api public
+ */
+Person.prototype.md5 = function md5() {
   var args = this.api.args(arguments, 'queue')
     , md5 = crypto.createHash('md5').update(args.value).digest('hex');
 
