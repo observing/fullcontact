@@ -17,33 +17,51 @@ describe('FullContact.Person', function () {
   //
   this.timeout(20000);
 
+  //
+  // Pre-create an API instance
+  //
+  var api = new FullContact(key);
+
   describe('#email', function () {
-    it('retrieves data by e-mail');
+    it('retrieves data by e-mail', function (done) {
+      api.person.email('arnout@observe.it', done);
+    });
+
     it('provides the proper casing');
   });
 
   describe('#md5', function () {
-    it('retrieves data by md5 e-mail');
-    it('provides the proper casing');
-  });
+    var md5 = require('crypto').createHash('md5')
+                .update('arnout@observe.it')
+                .digest('hex')
+              .toString();
 
-  describe('#md5', function () {
-    it('retrieves data by md5 e-mail');
+    it('retrieves data by md5 e-mail', function (done) {
+      api.person.md5(md5, done);
+    });
+
     it('provides the proper casing');
   });
 
   describe('#twitter', function () {
-    it('retrieves data by twitter handle');
+    it('retrieves data by twitter handle', function (done) {
+      api.person.twitter('observe_it', done);
+    });
+
     it('provides the proper casing');
   });
 
   describe('#facebook', function () {
-    it('retrieves data by facebook username');
+    it('retrieves data by facebook username', function (done) {
+      api.person.facebook('arnout.kazemier', done);
+    });
+
     it('provides the proper casing');
   });
 
   describe('#phone', function () {
     it('retrieves data by phone number');
+
     it('provides the proper casing');
   });
 });

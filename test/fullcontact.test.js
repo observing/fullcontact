@@ -88,7 +88,10 @@ describe('FullContact', function () {
     api.person.email('arnout@observe.it', function email(err) {
       if (err) return done(err);
 
-      expect(api.remaining).to.be.below(remaining);
+      //
+      // The value should be same as before or below
+      //
+      expect(api.remaining).to.be.below(remaining + 1);
       done();
     });
   });
