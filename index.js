@@ -24,6 +24,8 @@ function FullContact(api) {
 
   this.queueing = false;  // Should we be queueing requests
   this.requests = [];     // Stores all queued commands
+
+  if (!this.key) throw new Error('Missing API key');
 }
 
 /**
@@ -70,9 +72,9 @@ FullContact.prototype.request = function req(packet, args) {
     , self = this;
 
   request(packet, function requested(err, res, body) {
-    self.ratereset = +res.headers['X-Rate-Limit-Reset'] || self.ratereste;
-    self.ratelimit = +res.headers['X-Rate-Limit-Limit'] || self.ratelimit;
-    self.remaining = +res.headers['X-Rate-Limit-Remaining'] || self.remaining;
+    self.ratereset = +res.headers['x-rate-limit-reset'] || self.ratereste;
+    self.ratelimit = +res.headers['x-rate-limit-limit'] || self.ratelimit;
+    self.remaining = +res.headers['x-rate-limit-remaining'] || self.remaining;
 
     if (err) return fn(err);
 
@@ -212,12 +214,14 @@ FullContact.define = function define(where, name, fn) {
   Object.defineProperty(where, name, {
     configurable: true,
     get: function get() {
-      return where[name] = fn.call(this);
+      return Object.defineProperty(this, name, {
+        value: fn.call(this)
+      })[name];
     },
     set: function set(value) {
-      Object.defineProperty(where, name, {
+      return Object.defineProperty(this, name, {
         value: value
-      });
+      })[name];
     }
   });
 };

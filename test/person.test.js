@@ -5,6 +5,8 @@ describe('FullContact.Person', function () {
     , chai = require('chai')
     , expect = chai.expect;
 
+  chai.Assertion.includeStack = true;
+
   //
   // The API key we use for testing.
   //

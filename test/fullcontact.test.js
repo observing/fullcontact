@@ -5,6 +5,8 @@ describe('FullContact', function () {
     , chai = require('chai')
     , expect = chai.expect;
 
+  chai.Assertion.includeStack = true;
+
   //
   // The API key we use for testing.
   //
@@ -15,10 +17,15 @@ describe('FullContact', function () {
   //
   this.timeout(20000);
 
-  it('exposes the createClient api which initializes the constructor', function () {
-    var api = FullContact.createClient(key);
+  //
+  // Pre-create an API instance
+  //
+  var api = new FullContact(key);
 
-    expect(api).to.be.instanceOf(FullContact);
+  it('exposes the createClient api which initializes the constructor', function () {
+    var client = FullContact.createClient(key);
+
+    expect(client).to.be.instanceOf(FullContact);
   });
 
   it('exposes the Person constructor', function () {
@@ -37,27 +44,54 @@ describe('FullContact', function () {
     expect(FullContact.Name).to.be.a('function');
   });
 
-  it('sets the x-rate properties on request', function (done) {
-    var fc = new FullContact(key);
+  it('throws an error when the API is constructed without a key', function () {
+    try { new FullContact(); }
+    catch(e) {
+      return expect(e.message).to.equal('Missing API key');
+    }
 
+    throw new Error('I should have failed');
+  });
+
+  it('errors when an invalid API key is given', function (done) {
+    var client = new FullContact(key +'adfasfdsfadsfas');
+
+    client.person.email('arnout@observe.it', function (err) {
+      expect(err).to.be.instanceOf(Error);
+      expect(err.message.toLowerCase()).to.include('api');
+      expect(err.message.toLowerCase()).to.include('key');
+
+      done();
+    });
+  });
+
+  it('sets the x-rate properties on request', function (done) {
     ['remaining', 'ratelimit', 'ratereset'].forEach(function (prop) {
-      expect(fc[prop]).to.equal(0);
+      expect(api[prop]).to.equal(0);
     });
 
-    fc.person.email('arnout@observe.it', function normalize(err, data) {
+    api.person.email('arnout@observe.it', function email(err, data) {
       if (err) return done(err);
 
       ['remaining', 'ratelimit', 'ratereset'].forEach(function (prop) {
-        expect(fc[prop]).to.not.equal(0);
-        expect(fc[prop]).to.be.a('number');
+        expect(api[prop]).to.not.equal(0);
+        expect(api[prop]).to.be.a('number');
       });
 
       done();
     });
   });
 
-  it('decreases the rate remaining on request');
-  it('errors when an invalid API key is given');
+  it('decreases the rate remaining on request', function (done) {
+    var remaining = api.remaining;
+
+    api.person.email('arnout@observe.it', function email(err) {
+      if (err) return done(err);
+
+      expect(api.remaining).to.be.below(remaining);
+      done();
+    });
+  });
 
   it('does batch requests');
 });
