@@ -25,7 +25,7 @@ function Location(api) {
  * @api public
  */
 Location.prototype.normalize = function normalize() {
-  var args = this.api.args(arguments, 'includeZeroPopulation', 'casing');
+  var args = this.api.args(arguments, 'population', 'casing');
 
   //
   // Add a custom endpoint.
@@ -47,7 +47,7 @@ Location.prototype.normalize = function normalize() {
  * @api public
  */
 Location.prototype.enrich = function enrichment() {
-  var args = this.api.args(arguments, 'includeZeroPopulation', 'casing');
+  var args = this.api.args(arguments, 'population', 'casing');
 
   //
   // Add a custom endpoint.

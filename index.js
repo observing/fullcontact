@@ -42,6 +42,7 @@ FullContact.prototype.process = function req(api, query, args) {
   //
   if (args.queue) query.queue = args.queue;
   if (args.casing) query.casing = args.casing;
+  if (args.population) query.includeZeroPopulation = !!args.population;
 
   //
   // The packet that is send to the server or queued when we are in queuing
