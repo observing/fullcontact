@@ -1,7 +1,5 @@
 'use strict';
 
-var crypto = require('crypto');
-
 /**
  * Retrieve personal / contact information.
  *
@@ -44,10 +42,9 @@ Person.prototype.email = function email() {
  * @api public
  */
 Person.prototype.md5 = function md5() {
-  var args = this.api.args(arguments, 'queue')
-    , md5 = crypto.createHash('md5').update(args.value).digest('hex');
+  var args = this.api.args(arguments, 'queue');
 
-  this.send({ emailMD5: md5 }, args);
+  this.send({ emailMD5: args.value }, args);
   return this;
 };
 
