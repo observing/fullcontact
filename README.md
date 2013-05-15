@@ -82,7 +82,7 @@ as queue.
 
 The following methods are available on this API:
 
-### person.email(address, [queue], fn);
+#### person.email(address, [queue], fn);
 
 Retrieves contact information by e-mail address.
 
@@ -92,7 +92,7 @@ fullcontact.person.email('foo@bar.com', function (err, data) {
 });
 ```
 
-### person.md5(address, [queue], fn);
+#### person.md5(address, [queue], fn);
 
 Retrieves contact information by e-mail address but transforms the email to an
 MD5 first.
@@ -103,7 +103,7 @@ fullcontact.person.md5('foo@bar.com', function (err, data) {
 });
 ```
 
-### person.twitter(handle, [queue], fn);
+#### person.twitter(handle, [queue], fn);
 
 Retrieves contact information by Twitter username.
 
@@ -113,7 +113,7 @@ fullcontact.person.twitter('3rdEden', function (err, data) {
 });
 ```
 
-### person.facebook(handle, [queue], fn);
+#### person.facebook(handle, [queue], fn);
 
 Retrieves contact information by Facebook username.
 
@@ -123,12 +123,99 @@ fullcontact.person.facebook('john.smith', function (err, data) {
 });
 ```
 
-### person.phone(handle, [queue], fn);
+#### person.phone(handle, [queue], fn);
 
 Retrieves contact information by phone number.
 
 ```js
 fullcontact.person.phone('+13037170414', function (err, data) {
+  ..
+});
+```
+
+### Email
+
+The `Email` endpoint is namespaced under the `.email` property.
+
+#### email.disposable(email, [casing], fn);
+
+Checks if the given e-mail address was disposible.
+
+```js
+fullcontact.email.disposable('foo@bar.bar', function (err, data) {
+  ..
+});
+```
+
+### Name
+
+The name API has an optional `casing` argument. The value of this optional
+argument can either be:
+
+- `uppercase` for UPPERCASED NAMES  (JOHN SMITH)
+- `lowercase` for lowercased names  (john smith)
+- `titlecase` for Title Cased names (John Smith)
+
+#### fullcontact.name.normalize('John Smith', [casing], fn);
+
+Normalize a name.
+
+```js
+fullcontact.name.normalize('John Smith', function (err, data) {
+  ..
+});
+```
+
+#### fullcontact.name.deducer({ email: 'opensource@observe.it' }, [casing], fn);
+
+Name deducing. Unlinke other API's this API should receive an object with either
+an `email` or `username` property which you want to use to substract the
+information.
+
+```js
+fullcontact.name.deducer({ email: 'opensource@observe.it' }, function (err, data) {
+  ..
+});
+
+fullcontact.name.deducer({ username: '3rdeden' }, 'lowercase', function (err, data) {
+  ..
+});
+```
+
+#### fullcontact.name.similarity('john', 'johnny', [casing], fn);
+
+Check the similairity of between two names.
+
+```js
+fullcontact.name.similarity('john', 'johnny', function (err, data) {
+ ..
+});
+```
+
+#### fullcontact.name.stats({ name: 'john' }, [casing], fn);
+
+Retrieve some statistics about the name. Just like the name `deducer` API this
+API only accepts an object that receives either a `givenName`, `familyName` or
+both.
+
+```js
+fullcontact.name.stats({ name: 'john' }, function (err, data) {
+  ..
+});
+
+//
+// fullcontact.name.stats({ givenName: 'john' }, [casing], fn);
+// fullcontact.name.stats({ familyName: 'smith' }, [casing], fn);
+// fullcontact.name.stats({ givenName: 'john', familyName: 'smith' }, [casing], fn);
+//
+```
+
+#### fullcontact.name.parser('john smith', [casing], fn);
+
+Parses the name to determin the likelyhoot that this is really a name.
+
+```js
+fullcontact.name.parser('john smith', function (err, data) {
   ..
 });
 ```
