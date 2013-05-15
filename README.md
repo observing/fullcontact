@@ -8,6 +8,10 @@ implements the following API endpoints:
 - [Email](#email)
 - [Name](#name)
 
+## Build status
+
+[![Build Status](https://travis-ci.org/observing/fullcontact.png?branch=master)](https://travis-ci.org/observing/fullcontact)
+
 ## Installation
 
 The module is distributed through npm (node package manager) and can be
@@ -274,7 +278,7 @@ npm test
 If you want to test with your own API key please run:
 
 ```
-API_KEY=<key> npm test
+API_KEY=<key> ./node_modules/.bin/mocha $(find test -name '*.test.js')
 ```
 
 ## License

@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "description": "Fullcontact API bindings",
   "main": "index.js",
+  "keywords": ["fullcontact", "api", "full", "contact"],
   "scripts": {
-    "test": "NODE_ENV=testing ./node_modules/.bin/mocha $(find test -name '*.test.js')"
+    "test": "API_KEY=506d9c8a7aafae5a NODE_ENV=testing ./node_modules/.bin/mocha $(find test -name '*.test.js')"
   },
   "repository": "",
   "author": "Arnout Kazemier <opensource@observe.it>",
