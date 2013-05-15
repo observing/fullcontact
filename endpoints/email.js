@@ -10,7 +10,7 @@
 function Email(api) {
   this.api = api;
 
-  this.endpoint = 'https://api.fullcontact.com/'+ api.version +'/mail/';
+  this.endpoint = 'https://api.fullcontact.com/'+ api.version +'/email/';
   this.send = api.process.bind(api, this);
 }
 
