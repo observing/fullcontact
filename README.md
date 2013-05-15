@@ -3,10 +3,10 @@
 `fullcontact` is a Node.js module that wraps the [fullcontact] API. It
 implements the following API endpoints:
 
-- Location
-- Person
-- Email
-- Name
+- [Location](#location)
+- [Person](#person)
+- [Email](#email)
+- [Name](#name)
 
 ## Installation
 
@@ -72,6 +72,47 @@ Please note that these properties are all set to 0 until you have made your
 first request to the API server as these values are parsed from the response
 headers.
 
+## Error responses
+
+This API implemention will return an Error object when the FullContact response
+is returned without a `status: 200` so it could be that your operation is queued
+for processing. That's why all returned error's have a `status` property which
+the returned status code (unless it's a parse error or a generic error). So just
+because you got an error, it doesn't mean that your request has failed.
+
+### Location
+
+Turn your semi-structured data in fully structured location data. This
+`Location` endpoint is namespaced as a `.location` property. It has 2 optional
+arguments.
+
+1. `casing` How is the provided location cased?
+  - `uppercase` for UPPERCASED NAMES  (JOHN SMITH)
+  - `lowercase` for lowercased names  (john smith)
+  - `titlecase` for Title Cased names (John Smith)
+2. `includeZeroPopulation` will display 0 population census locations. The
+   provided value should be a boolean.
+
+#### fullcontact.location.normalize('denver', [casing], [includeZeroPopulation], fn);
+
+Normalize the location data.
+
+```js
+fullcontact.location.normalize('denver', function (err, data) {
+  ..
+});
+```
+
+#### fullcontact.location.enrich('denver', [casing], [includeZeroPopulation], fn);
+
+Retrieve more information from the location API.
+
+```js
+fullcontact.location.enrich('denver', function (err, data) {
+  ..
+});
+```
+
 ### Person
 
 The `Person` endpoint is confidently namespaced as a `.person` property. Each
@@ -135,9 +176,11 @@ fullcontact.person.phone('+13037170414', function (err, data) {
 
 ### Email
 
-The `Email` endpoint is namespaced under the `.email` property.
+Reduce the number of anonymous subscribers by detecing of the user is
+subscribing with a real e-mail address or just a one time address The `Email`
+endpoint is namespaced under the `.email` property.
 
-#### email.disposable(email, [casing], fn);
+#### email.disposable(email, fn);
 
 Checks if the given e-mail address was disposible.
 
@@ -218,6 +261,20 @@ Parses the name to determin the likelyhoot that this is really a name.
 fullcontact.name.parser('john smith', function (err, data) {
   ..
 });
+```
+
+## Testing
+
+The tests are written against the live FullContact API. They can be ran using:
+
+```
+npm test
+```
+
+If you want to test with your own API key please run:
+
+```
+API_KEY=<key> npm test
 ```
 
 ## License

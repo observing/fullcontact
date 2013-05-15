@@ -25,7 +25,7 @@ function Email(api) {
  * @api public
  */
 Email.prototype.disposable = function disposable() {
-  var args = this.api.args(arguments, 'casing');
+  var args = this.api.args(arguments);
 
   //
   // Add a custom endpoint.

@@ -18,14 +18,14 @@ function Location(api) {
  * Normalize the location data.
  *
  * ```js
- * fullcontact.location.normalize('denver', [includeZeroPopulation], [casing], fn);
+ * fullcontact.location.normalize('denver', [casing], [includeZeroPopulation], fn);
  * ```
  *
  * @returns {Location}
  * @api public
  */
 Location.prototype.normalize = function normalize() {
-  var args = this.api.args(arguments, 'population', 'casing');
+  var args = this.api.args(arguments, 'casing', 'population');
 
   //
   // Add a custom endpoint.
@@ -40,14 +40,14 @@ Location.prototype.normalize = function normalize() {
  * Retrieve more information from the location API.
  *
  * ```js
- * fullcontact.location.enrich('denver', [includeZeroPopulation], [casing], fn);
+ * fullcontact.location.enrich('denver', [casing], [includeZeroPopulation], fn);
  * ```
  *
  * @returns {Location}
  * @api public
  */
 Location.prototype.enrich = function enrichment() {
-  var args = this.api.args(arguments, 'population', 'casing');
+  var args = this.api.args(arguments, 'casing', 'population');
 
   //
   // Add a custom endpoint.
