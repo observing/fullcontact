@@ -1,6 +1,6 @@
 {
   "name": "fullcontact",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Fullcontact API bindings",
   "main": "index.js",
   "keywords": ["fullcontact", "api", "full", "contact"],
