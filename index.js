@@ -72,11 +72,11 @@ FullContact.prototype.request = function req(packet, args) {
     , self = this;
 
   request(packet, function requested(err, res, body) {
+    if (err) return fn(err);
+
     self.ratereset = +res.headers['x-rate-limit-reset'] || self.ratereste;
     self.ratelimit = +res.headers['x-rate-limit-limit'] || self.ratelimit;
     self.remaining = +res.headers['x-rate-limit-remaining'] || self.remaining;
-
-    if (err) return fn(err);
 
     //
     // Parse response to JSON.
