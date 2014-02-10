@@ -74,7 +74,7 @@ FullContact.prototype.request = function req(packet, args) {
   request(packet, function requested(err, res, body) {
     if (err) return fn(err);
 
-    self.ratereset = +res.headers['x-rate-limit-reset'] || self.ratereste;
+    self.ratereset = +res.headers['x-rate-limit-reset'] || self.ratereset;
     self.ratelimit = +res.headers['x-rate-limit-limit'] || self.ratelimit;
     self.remaining = +res.headers['x-rate-limit-remaining'] || self.remaining;
 
