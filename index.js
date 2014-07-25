@@ -45,6 +45,9 @@ FullContact.prototype.process = function req(api, query, args) {
   if (args.queue) query.queue = args.queue;
   if (args.casing) query.casing = args.casing;
   if (args.population) query.includeZeroPopulation = !!args.population;
+  if (args.webhookUrl) query.webhookUrl = args.webhookUrl;
+  if (args.webhookId) query.webhookId = args.webhookId;
+  if (args.webhookBody) query.webhookBody = args.webhookBody;
 
   //
   // The packet that is send to the server or queued when we are in queuing
@@ -195,11 +198,13 @@ FullContact.prototype.exec = function exec(fn) {
 FullContact.prototype.args = function parser(args) {
   var optional = slice.call(arguments, 1);
   args = slice.call(args, 0);
+  var cb = typeof args[args.length-1] === 'function' && args.pop();
+  cb = cb || function(){};
 
   return optional.reduce(function optional(data, key, index) {
     data[key] = args[index];
     return data;
-  }, { value: args.shift(), fn: args.pop() });
+  }, { value: args.shift(), fn: cb });
 };
 
 /**
