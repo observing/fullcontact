@@ -7,7 +7,10 @@
   "scripts": {
     "test": "API_KEY=506d9c8a7aafae5a NODE_ENV=testing ./node_modules/.bin/mocha $(find test -name '*.test.js')"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:observing/fullcontact.git"
+  },
   "author": "Arnout Kazemier <opensource@observe.it>",
   "license": "MIT",
   "dependencies": {
