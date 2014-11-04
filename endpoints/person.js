@@ -83,6 +83,23 @@ Person.prototype.facebook = function facebook() {
 };
 
 /**
+ * Retrieve contact information by Facebook id.
+ *
+ * ```js
+ * fullcontact.person.facebookId('651620441', [queue], fn);
+ * ```
+ *
+ * @returns {Person}
+ * @api public
+ */
+Person.prototype.facebookId = function facebook() {
+  var args = this.api.args(arguments, 'queue');
+
+  this.send({ facebookId: args.value }, args);
+  return this;
+};
+
+/**
  * Retrieve contact information by phone number.
  *
  * ```js
