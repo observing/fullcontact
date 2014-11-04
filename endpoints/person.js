@@ -86,7 +86,7 @@ Person.prototype.facebook = function facebook() {
  * Retrieve contact information by Facebook id.
  *
  * ```js
- * fullcontact.person.facebookId('651620441', [queue], fn);
+ * fullcontact.person.facebookId('1844599060', [queue], fn);
  * ```
  *
  * @returns {Person}
