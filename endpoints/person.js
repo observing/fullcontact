@@ -25,7 +25,7 @@ function Person(api) {
  * @api public
  */
 Person.prototype.email = function email() {
-  var args = this.api.args(arguments, 'queue');
+  var args = this.api.args(arguments, 'queue', 'webhookUrl', 'webhookId', 'webhookBody');
 
   this.send({ email: args.value }, args);
   return this;
