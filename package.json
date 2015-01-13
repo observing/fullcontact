@@ -14,8 +14,8 @@
   "author": "Arnout Kazemier <opensource@observe.it>",
   "license": "MIT",
   "dependencies": {
-    "request": "~2.21.0",
-    "qs": "~0.6.4"
+    "request": "~2.25.0",
+    "qs": "~2.3.3"
   },
   "devDependencies": {
     "mocha": "2.1.x",
