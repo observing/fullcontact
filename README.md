@@ -272,14 +272,10 @@ fullcontact.name.parser('john smith', function (err, data) {
 The tests are written against the live FullContact API. They can be ran using:
 
 ```
-npm test
+API_KEY=<key> npm test
 ```
 
-If you want to test with your own API key please run:
-
-```
-API_KEY=<key> ./node_modules/.bin/mocha $(find test -name '*.test.js')
-```
+Don't worry if you forget it, we'll throw an error and let you know ;-).
 
 ## License
 
