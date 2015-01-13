@@ -32,7 +32,14 @@ describe('FullContact.Person', function () {
   
   describe('#email with webhook url/id', function () {
     it('retrieves data by e-mail and sets up a webhook with the right url and id', function (done) {
-      api.person.email('arnout@observe.it', null, 'http://requestb.in/1bxgb751', 'webhookTest', done);
+      api.person.email('arnout@observe.it', null, 'http://requestb.in/1bxgb751', 'webhookTest', function email(err, data) {
+        if (err) return done(err);
+
+        console.log(err);
+        console.log(data);
+
+        done();
+      });
     });
 
     it('provides the proper casing');
