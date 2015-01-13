@@ -45,6 +45,8 @@ FullContact.prototype.process = function req(api, query, args) {
   if (args.queue) query.queue = args.queue;
   if (args.casing) query.casing = args.casing;
   if (args.population) query.includeZeroPopulation = !!args.population;
+  if (args.webhookUrl) query.webhookUrl = args.webhookUrl;
+  if (args.webhookId) query.webhookId = args.webhookId;
 
   //
   // The packet that is send to the server or queued when we are in queuing
@@ -93,7 +95,7 @@ FullContact.prototype.request = function req(packet, args) {
     // it will have a "message" property when it's a failed request so we can
     // leverage that to return a nice error.
     //
-    if (body.status !== 200) {
+    if (body.status !== 200 && body.status !== 202) {
       err = new Error(body.message);
       err.status = body.status;
 

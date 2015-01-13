@@ -29,12 +29,20 @@ describe('FullContact.Person', function () {
 
     it('provides the proper casing');
   });
+  
+  describe('#email with webhook url/id', function () {
+    it('retrieves data by e-mail and sets up a webhook with the right url and id', function (done) {
+      api.person.email('arnout@observe.it', null, 'http://requestb.in/1bxgb751', 'webhookTest', done);
+    });
+
+    it('provides the proper casing');
+  });
 
   describe('#md5', function () {
     var md5 = require('crypto').createHash('md5')
                 .update('arnout@observe.it')
                 .digest('hex')
-              .toString();
+                .toString();
 
     it('retrieves data by md5 e-mail', function (done) {
       api.person.md5(md5, done);
@@ -68,7 +76,9 @@ describe('FullContact.Person', function () {
   });
 
   describe('#phone', function () {
-    it('retrieves data by phone number');
+    it('retrieves data by phone number', function (done) {
+      api.person.phone('+13037170414', done);
+    });
 
     it('provides the proper casing');
   });
