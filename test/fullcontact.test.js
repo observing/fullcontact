@@ -11,6 +11,7 @@ describe('FullContact', function () {
   // The API key we use for testing.
   //
   var key = process.env.API_KEY;
+  if (!key) throw new Error('Please provide your API using the API_KEY env variable.');
 
   //
   // Some of the requests take a really long time, so set a really long timeout

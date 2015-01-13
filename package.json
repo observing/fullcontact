@@ -5,7 +5,8 @@
   "main": "index.js",
   "keywords": ["fullcontact", "api", "full", "contact"],
   "scripts": {
-    "test": "API_KEY=506d9c8a7aafae5a NODE_ENV=testing ./node_modules/.bin/mocha $(find test -name '*.test.js')"
+    "test": "NODE_ENV=testing ./node_modules/.bin/mocha $(find test -name '*.test.js')",
+    "test-travis": "API_KEY=506d9c8a7aafae5a NODE_ENV=testing ./node_modules/.bin/mocha $(find test -name '*.test.js')"
   },
   "repository": {
     "type": "git",

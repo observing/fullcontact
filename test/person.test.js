@@ -11,6 +11,7 @@ describe('FullContact.Person', function () {
   // The API key we use for testing.
   //
   var key = process.env.API_KEY;
+  if (!key) throw new Error('Please provide your API using the API_KEY env variable.');
 
   //
   // Some of the requests take a really long time, so set a really long timeout
@@ -29,7 +30,7 @@ describe('FullContact.Person', function () {
 
     it('provides the proper casing');
   });
-  
+
   describe('#email with webhook url/id', function () {
     it('retrieves data by e-mail and sets up a webhook with the right url and id', function (done) {
       api.person.email('arnout@observe.it', null, 'http://requestb.in/1bxgb751', 'webhookTest', done);
