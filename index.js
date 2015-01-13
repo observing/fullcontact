@@ -95,7 +95,7 @@ FullContact.prototype.request = function req(packet, args) {
     // it will have a "message" property when it's a failed request so we can
     // leverage that to return a nice error.
     //
-    if (body.status !== 200) {
+    if (body.status !== 200 || body.status !== 202) {
       err = new Error(body.message);
       err.status = body.status;
 
