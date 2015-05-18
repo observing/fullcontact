@@ -1,32 +1,44 @@
-describe('FullContact.Location', function () {
-  'use strict';
+'use strict';
 
-  var FullContact = require('../');
-  var chai = require('chai');
+var Lab = require('lab');
+var Code = require('code');
+var FullContact = require('../');
 
-  chai.config.includeStack = true;
+var lab = exports.lab = Lab.script();
+var describe = lab.describe;
+var it = lab.it;
+var before = lab.before;
+var expect = Code.expect;
 
-  //
-  // The API key we use for testing.
-  //
-  var key = process.env.API_KEY;
-  if (!key) {
-    throw new Error('Please provide your API using the API_KEY env variable.');
-  }
+var api = null;
 
-  //
-  // Some of the requests take a really long time, so set a really long timeout
-  //
-  this.timeout(20000);
+describe('FullContact.Location', { timeout: 20000 }, function () {
 
-  //
-  // Pre-create an API instance
-  //
-  var api = new FullContact(key);
+  before(function (done) {
+    //
+    // The API key we use for testing.
+    //
+    var key = process.env.API_KEY;
+    if (!key) {
+      throw new Error('Please provide your API using the API_KEY env variable.');
+    }
+
+    api = new FullContact(key);
+    return done();
+  });
 
   describe('#normalize', function () {
+
     it('it normalizes the given name', function (done) {
-      api.location.normalize('denver', done);
+
+      api.location.normalize('denver', function (err, data) {
+
+        expect(err).to.not.exist();
+        expect(data).to.be.an.object();
+        expect(data.status).to.be.within(200, 202);
+
+        return done();
+      });
     });
 
     it('provides the proper casing');
@@ -34,8 +46,17 @@ describe('FullContact.Location', function () {
   });
 
   describe('#enrich', function () {
+
     it('provides location enrichment', function (done) {
-      api.location.enrich('denver', done);
+
+      api.location.enrich('denver', function (err, data) {
+
+        expect(err).to.not.exist();
+        expect(data).to.be.an.object();
+        expect(data.status).to.be.within(200, 202);
+
+        return done();
+      });
     });
 
     it('provides the proper casing');
