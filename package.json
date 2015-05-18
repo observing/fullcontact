@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "Fullcontact API bindings",
   "main": "index.js",
-  "keywords": ["fullcontact", "api", "full", "contact"],
+  "keywords": [
+    "fullcontact",
+    "api",
+    "full",
+    "contact"
+  ],
   "scripts": {
-    "test": "NODE_ENV=testing ./node_modules/.bin/mocha $(find test -name '*.test.js')",
-    "test-travis": "API_KEY=506d9c8a7aafae5a NODE_ENV=testing ./node_modules/.bin/mocha $(find test -name '*.test.js')"
+    "test": "lab -e test -t 100 -vL -a code  --lint-errors-threshold 0 --lint-warnings-threshold 0",
+    "test-travis": "API_KEY=506d9c8a7aafae5a lab -e test -t 100 -vL -a code  --lint-errors-threshold 0 --lint-warnings-threshold 0"
   },
   "repository": {
     "type": "git",
@@ -19,8 +24,8 @@
     "qs": "2.x.x"
   },
   "devDependencies": {
-    "mocha": "2.x.x",
-    "chai": "2.x.x",
+    "code": "1.x.x",
+    "lab": "5.x.x",
     "pre-commit": "1.x.x"
   }
 }
