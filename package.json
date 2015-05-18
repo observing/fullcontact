@@ -15,12 +15,12 @@
   "author": "Arnout Kazemier <opensource@observe.it>",
   "license": "MIT",
   "dependencies": {
-    "request": "~2.25.0",
-    "qs": "~2.3.3"
+    "request": "2.x.x",
+    "qs": "2.x.x"
   },
   "devDependencies": {
-    "mocha": "2.1.x",
-    "chai": "1.10.x",
-    "pre-commit": "0.0.x"
+    "mocha": "2.x.x",
+    "chai": "2.x.x",
+    "pre-commit": "1.x.x"
   }
 }

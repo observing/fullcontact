@@ -1,17 +1,19 @@
 describe('FullContact', function () {
   'use strict';
 
-  var FullContact = require('../')
-    , chai = require('chai')
-    , expect = chai.expect;
+  var FullContact = require('../');
+  var chai = require('chai');
+  var expect = chai.expect;
 
-  chai.Assertion.includeStack = true;
+  chai.config.includeStack = true;
 
   //
   // The API key we use for testing.
   //
   var key = process.env.API_KEY;
-  if (!key) throw new Error('Please provide your API using the API_KEY env variable.');
+  if (!key) {
+    throw new Error('Please provide your API using the API_KEY env variable.');
+  }
 
   //
   // Some of the requests take a really long time, so set a really long timeout
@@ -55,7 +57,7 @@ describe('FullContact', function () {
   });
 
   it('errors when an invalid API key is given', function (done) {
-    var client = new FullContact(key +'adfasfdsfadsfas');
+    var client = new FullContact(key + 'adfasfdsfadsfas');
 
     client.person.email('arnout@observe.it', function (err) {
       expect(err).to.be.instanceOf(Error);
@@ -71,8 +73,10 @@ describe('FullContact', function () {
       expect(api[prop]).to.equal(0);
     });
 
-    api.person.email('arnout@observe.it', function email(err, data) {
-      if (err) return done(err);
+    api.person.email('arnout@observe.it', function email(err) {
+      if (err) {
+        return done(err);
+      }
 
       ['remaining', 'ratelimit', 'ratereset'].forEach(function (prop) {
         expect(api[prop]).to.not.equal(0);
@@ -87,7 +91,9 @@ describe('FullContact', function () {
     var remaining = api.remaining;
 
     api.person.email('arnout@observe.it', function email(err) {
-      if (err) return done(err);
+      if (err) {
+        return done(err);
+      }
 
       //
       // The value should be same as before or below

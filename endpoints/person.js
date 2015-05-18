@@ -10,7 +10,7 @@
 function Person(api) {
   this.api = api;
 
-  this.endpoint = 'https://api.fullcontact.com/'+ api.version +'/person.json';
+  this.endpoint = 'https://api.fullcontact.com/' + api.version + '/person.json';
   this.send = api.process.bind(api, this);
 }
 

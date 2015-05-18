@@ -10,7 +10,7 @@
 function Email(api) {
   this.api = api;
 
-  this.endpoint = 'https://api.fullcontact.com/'+ api.version +'/email/';
+  this.endpoint = 'https://api.fullcontact.com/' + api.version + '/email/';
   this.send = api.process.bind(api, this);
 }
 
@@ -30,7 +30,7 @@ Email.prototype.disposable = function disposable() {
   //
   // Add a custom endpoint.
   //
-  args.endpoint = this.endpoint +'disposable.json';
+  args.endpoint = this.endpoint + 'disposable.json';
 
   this.send({ email: args.value }, args);
   return this;

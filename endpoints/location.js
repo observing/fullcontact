@@ -10,7 +10,7 @@
 function Location(api) {
   this.api = api;
 
-  this.endpoint = 'https://api.fullcontact.com/'+ api.version +'/address/';
+  this.endpoint = 'https://api.fullcontact.com/' + api.version + '/address/';
   this.send = api.process.bind(api, this);
 }
 
@@ -30,7 +30,7 @@ Location.prototype.normalize = function normalize() {
   //
   // Add a custom endpoint.
   //
-  args.endpoint = this.endpoint +'locationNormalizer.json';
+  args.endpoint = this.endpoint + 'locationNormalizer.json';
 
   this.send({ place: args.value }, args);
   return this;
@@ -52,7 +52,7 @@ Location.prototype.enrich = function enrichment() {
   //
   // Add a custom endpoint.
   //
-  args.endpoint = this.endpoint +'locationEnrichment.json';
+  args.endpoint = this.endpoint + 'locationEnrichment.json';
 
   this.send({ place: args.value }, args);
   return this;
