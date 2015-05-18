@@ -119,21 +119,28 @@ fullcontact.location.enrich('denver', function (err, data) {
 
 ### Person
 
-The `Person` endpoint is confidently namespaced as a `.person` property. Each
-person API has an optional `queue` argument which you can use to indicate that
+The `Person` endpoint is confidently namespaced as a `.person` property. 
+Each person API has an optional `queue` argument which you can use to indicate that
 this request will should be pre-processed by FullContact and that you want to
 fetch the details later. According to the API it should to receive the value `1`
 as queue.
 
 The following methods are available on this API:
 
-#### person.email(address, [queue], fn);
+#### person.email(address, [queue], [webhookUrl], [webhookId], fn);
 
 Retrieves contact information by e-mail address.
+Supports the use of webhooks by providing an url and id.
 
 ```js
 fullcontact.person.email('foo@bar.com', function (err, data) {
   ..
+});
+```
+
+```js
+fullcontact.person.email('foo@bar.com', null, 'https://mycallbackurl.com', 'webhooktracker', function (err, data) {
+..
 });
 ```
 
