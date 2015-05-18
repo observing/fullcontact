@@ -18,7 +18,7 @@ function Person(api) {
  * Retrieve contact information by e-mail.
  *
  * ```js
- * fullcontact.person.email('opensource@observe.it', [queue], fn);
+ * fullcontact.person.email('opensource@observe.it', [queue], [webhookUrl], [webhookId], fn);
  * ```
  *
  * @returns {Person}
