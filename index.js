@@ -1,7 +1,7 @@
 'use strict';
 
 var request = require('request')
-  , qs = require('qs');
+, qs = require('qs');
 
 var slice = Array.prototype.slice;
 
@@ -13,7 +13,9 @@ var slice = Array.prototype.slice;
  * @api public
  */
 function FullContact(api) {
-  if (!(this instanceof FullContact)) return new FullContact(api);
+  if (!(this instanceof FullContact)) {
+    return new FullContact(api);
+  }
 
   this.key = api;         // API key
   this.version = 'v2';    // API version
@@ -25,7 +27,9 @@ function FullContact(api) {
   this.queueing = false;  // Should we be queueing requests
   this.requests = [];     // Stores all queued commands
 
-  if (!this.key) throw new Error('Missing API key');
+  if (!this.key) {
+    throw new Error('Missing API key');
+  }
 }
 
 /**
@@ -42,23 +46,37 @@ FullContact.prototype.process = function req(api, query, args) {
   //
   // Add some addition properties
   //
-  if (args.queue) query.queue = args.queue;
-  if (args.casing) query.casing = args.casing;
-  if (args.population) query.includeZeroPopulation = !!args.population;
-  if (args.webhookUrl) query.webhookUrl = args.webhookUrl;
-  if (args.webhookId) query.webhookId = args.webhookId;
+  if (args.queue) {
+    query.queue = args.queue;
+  }
+  if (args.casing) {
+    query.casing = args.casing;
+  }
+  if (args.population) {
+    query.includeZeroPopulation = !!args.population;
+  }
+
+  if (args.webhookUrl) {
+    query.webhookUrl = args.webhookUrl;
+  }
+  if (args.webhookId) {
+    query.webhookId = args.webhookId;
+  }
 
   //
   // The packet that is send to the server or queued when we are in queuing
   // mode.
   //
   var packet = {
-     method: 'GET',
-     uri: args.endpoint || api.endpoint,
-     qs: query
+    method: 'GET',
+    uri: args.endpoint || api.endpoint,
+    qs: query
   };
 
-  if (this.queueing) return this.queue(packet, args);
+  if (this.queueing) {
+    return this.queue(packet, args);
+  }
+
   return this.request(packet, args);
 };
 
@@ -71,10 +89,12 @@ FullContact.prototype.process = function req(api, query, args) {
  */
 FullContact.prototype.request = function req(packet, args) {
   var fn = args.fn
-    , self = this;
+  , self = this;
 
   request(packet, function requested(err, res, body) {
-    if (err) return fn(err);
+    if (err) {
+      return fn(err);
+    }
 
     self.ratereset = +res.headers['x-rate-limit-reset'] || self.ratereset;
     self.ratelimit = +res.headers['x-rate-limit-limit'] || self.ratelimit;
@@ -83,10 +103,10 @@ FullContact.prototype.request = function req(packet, args) {
     //
     // Parse response to JSON.
     //
-    if ('string' === typeof body) {
+    if (typeof body === 'string') {
       try { body = JSON.parse(body); }
       catch (e) {
-        return fn(new Error('Failed to parse API response ('+ e.message +')'));
+        return fn(new Error('Failed to parse API response (' + e.message + ')'));
       }
     }
 
@@ -133,7 +153,7 @@ FullContact.prototype.multi = function multi() {
  */
 FullContact.prototype.queue = function queue(packet, args) {
   this.requests.push({
-    url: packet.uri +'?'+ qs.stringify(packet.qs),
+    url: packet.uri + '?' + qs.stringify(packet.qs),
     fn: args.fn
   });
 
@@ -159,7 +179,9 @@ FullContact.prototype.exec = function exec(fn) {
    */
   function bailout(err) {
     requests.forEach(function cb(data) {
-      if (data.fn) data.fn(err);
+      if (data.fn) {
+        data.fn(err);
+      }
     });
 
     fn(err);
@@ -172,7 +194,7 @@ FullContact.prototype.exec = function exec(fn) {
 
   request({
     method: 'POST',
-    uri: 'https://api.fullcontact.com/'+ this.version +'/batch.json',
+    uri: 'https://api.fullcontact.com/' + this.version + '/batch.json',
     qs: { apiKey: this.key },
     json: {
       requests: requests.map(function urlsonly(data) {
@@ -180,7 +202,9 @@ FullContact.prototype.exec = function exec(fn) {
       })
     }
   }, function requested(err, res, body) {
-    if (err) return bailout(err);
+    if (err) {
+      return bailout(err);
+    }
 
     fn(err, body.responses);
   });
@@ -243,9 +267,10 @@ FullContact.createClient = function createClient(api) {
 // Expose the endpoints.
 //
 FullContact.Location = require('./endpoints/location');
-FullContact.Person   = require('./endpoints/person');
-FullContact.Email    = require('./endpoints/email');
-FullContact.Name     = require('./endpoints/name');
+FullContact.Person = require('./endpoints/person');
+FullContact.Email = require('./endpoints/email');
+FullContact.Name = require('./endpoints/name');
+FullContact.Company = require('./endpoints/company');
 
 //
 // Lazy load the various of endpoints so they only get initialized when we
@@ -265,6 +290,10 @@ FullContact.define(FullContact.prototype, 'person', function define() {
 
 FullContact.define(FullContact.prototype, 'name', function define() {
   return new FullContact.Name(this);
+});
+
+FullContact.define(FullContact.prototype, 'company', function define() {
+  return new FullContact.Company(this);
 });
 
 //

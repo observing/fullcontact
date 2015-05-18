@@ -1,17 +1,18 @@
 describe('FullContact.Person', function () {
   'use strict';
 
-  var FullContact = require('../')
-    , chai = require('chai')
-    , expect = chai.expect;
+  var FullContact = require('../');
+  var chai = require('chai');
 
-  chai.Assertion.includeStack = true;
+  chai.config.includeStack = true;
 
   //
   // The API key we use for testing.
   //
   var key = process.env.API_KEY;
-  if (!key) throw new Error('Please provide your API using the API_KEY env variable.');
+  if (!key) {
+    throw new Error('Please provide your API using the API_KEY env variable.');
+  }
 
   //
   // Some of the requests take a really long time, so set a really long timeout
@@ -41,9 +42,9 @@ describe('FullContact.Person', function () {
 
   describe('#md5', function () {
     var md5 = require('crypto').createHash('md5')
-                .update('arnout@observe.it')
-                .digest('hex')
-                .toString();
+    .update('arnout@observe.it')
+    .digest('hex')
+    .toString();
 
     it('retrieves data by md5 e-mail', function (done) {
       api.person.md5(md5, done);
@@ -68,7 +69,7 @@ describe('FullContact.Person', function () {
     it('provides the proper casing');
   });
 
-    describe('#facebookId', function () {
+  describe('#facebookId', function () {
     it('retrieves data by facebook id', function (done) {
       api.person.facebookId('1844599060', done);
     });

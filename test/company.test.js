@@ -1,4 +1,4 @@
-describe('FullContact.Email', function () {
+describe('FullContact.Company', function () {
   'use strict';
 
   var FullContact = require('../');
@@ -24,9 +24,17 @@ describe('FullContact.Email', function () {
   //
   var api = new FullContact(key);
 
-  describe('#disposable', function () {
-    it('is it an disposable e-mail address', function (done) {
-      api.email.disposable('arnout@observe.it', done);
+  describe('#domain', function () {
+    it('retrieves data by domain', function (done) {
+      api.company.domain('apple.com', done);
+    });
+
+    it('provides the proper casing');
+  });
+
+  describe('#domain with webhook url/id', function () {
+    it('retrieves data by e-mail and sets up a webhook with the right url and id', function (done) {
+      api.company.domain('apple.com', 'http://requestb.in/1bxgb751', 'webhookTest', done);
     });
 
     it('provides the proper casing');

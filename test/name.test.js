@@ -1,17 +1,18 @@
 describe('FullContact.Name', function () {
   'use strict';
 
-  var FullContact = require('../')
-    , chai = require('chai')
-    , expect = chai.expect;
+  var FullContact = require('../');
+  var chai = require('chai');
 
-  chai.Assertion.includeStack = true;
+  chai.config.includeStack = true;
 
   //
   // The API key we use for testing.
   //
   var key = process.env.API_KEY;
-  if (!key) throw new Error('Please provide your API using the API_KEY env variable.');
+  if (!key) {
+    throw new Error('Please provide your API using the API_KEY env variable.');
+  }
 
   //
   // Some of the requests take a really long time, so set a really long timeout

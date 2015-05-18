@@ -10,7 +10,7 @@
 function Person(api) {
   this.api = api;
 
-  this.endpoint = 'https://api.fullcontact.com/'+ api.version +'/person.json';
+  this.endpoint = 'https://api.fullcontact.com/' + api.version + '/person.json';
   this.send = api.process.bind(api, this);
 }
 
@@ -18,7 +18,7 @@ function Person(api) {
  * Retrieve contact information by e-mail.
  *
  * ```js
- * fullcontact.person.email('opensource@observe.it', [queue], fn);
+ * fullcontact.person.email('opensource@observe.it', [queue], [webhookUrl], [webhookId], fn);
  * ```
  *
  * @returns {Person}

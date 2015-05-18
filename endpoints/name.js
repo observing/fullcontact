@@ -10,7 +10,7 @@
 function Name(api) {
   this.api = api;
 
-  this.endpoint = 'https://api.fullcontact.com/'+ api.version +'/name/';
+  this.endpoint = 'https://api.fullcontact.com/' + api.version + '/name/';
   this.send = api.process.bind(api, this);
 }
 
@@ -30,7 +30,7 @@ Name.prototype.normalize = function normalize() {
   //
   // Add a custom endpoint.
   //
-  args.endpoint = this.endpoint +'normalizer.json';
+  args.endpoint = this.endpoint + 'normalizer.json';
 
   this.send({ q: args.value }, args);
   return this;
@@ -53,7 +53,7 @@ Name.prototype.deducer = function deducer() {
   //
   // Add a custom endpoint.
   //
-  args.endpoint = this.endpoint +'deducer.json';
+  args.endpoint = this.endpoint + 'deducer.json';
 
   this.send(args.value, args);
   return this;
@@ -75,7 +75,7 @@ Name.prototype.similarity = function similarity() {
   //
   // Add a custom endpoint.
   //
-  args.endpoint = this.endpoint +'similarity.json';
+  args.endpoint = this.endpoint + 'similarity.json';
 
   this.send({ q1: args.value, q2: args.q2 }, args);
   return this;
@@ -100,7 +100,7 @@ Name.prototype.stats = function stats() {
   //
   // Add a custom endpoint.
   //
-  args.endpoint = this.endpoint +'stats.json';
+  args.endpoint = this.endpoint + 'stats.json';
 
   this.send(args.value, args);
   return this;
@@ -122,7 +122,7 @@ Name.prototype.parser = function parser() {
   //
   // Add a custom endpoint.
   //
-  args.endpoint = this.endpoint +'parser.json';
+  args.endpoint = this.endpoint + 'parser.json';
 
   this.send({ q: args.value }, args);
   return this;
