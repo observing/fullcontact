@@ -270,6 +270,7 @@ FullContact.Location = require('./endpoints/location');
 FullContact.Person = require('./endpoints/person');
 FullContact.Email = require('./endpoints/email');
 FullContact.Name = require('./endpoints/name');
+FullContact.Company = require('./endpoints/company');
 
 //
 // Lazy load the various of endpoints so they only get initialized when we
@@ -289,6 +290,10 @@ FullContact.define(FullContact.prototype, 'person', function define() {
 
 FullContact.define(FullContact.prototype, 'name', function define() {
   return new FullContact.Name(this);
+});
+
+FullContact.define(FullContact.prototype, 'company', function define() {
+  return new FullContact.Company(this);
 });
 
 //
