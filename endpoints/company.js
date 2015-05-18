@@ -15,7 +15,7 @@ function Company(api) {
 }
 
 /**
- * Retriece company information by domain
+ * Retrieve company information by domain
  *
  * ```js
  * fullcontact.company.domain('apple.com', [webhookUrl], [webhookId], fn);
@@ -24,7 +24,7 @@ function Company(api) {
  * @returns {Company}
  * @api public
  */
-Company.prototype.domain = function disposable() {
+Company.prototype.domain = function domain() {
   var args = this.api.args(arguments, 'webhookUrl', 'webhookId');
 
   this.send({ domain: args.value }, args);
