@@ -33,7 +33,7 @@ describe('FullContact.Company', function () {
   });
 
   describe('#domain with webhook url/id', function () {
-    it('retrieves data by e-mail and sets up a webhook with the right url and id', function (done) {
+    it('retrieves data by domain and sets up a webhook with the right url and id', function (done) {
       api.company.domain('apple.com', 'http://requestb.in/1bxgb751', 'webhookTest', done);
     });
 
