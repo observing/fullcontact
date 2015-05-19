@@ -1,4 +1,4 @@
-# fullcontact
+# fullcontact [![Build Status](https://travis-ci.org/observing/fullcontact.png?branch=master)](https://travis-ci.org/observing/fullcontact)
 
 `fullcontact` is a Node.js module that wraps the [fullcontact] API. It
 implements the following API endpoints:
@@ -7,10 +7,9 @@ implements the following API endpoints:
 - [Person](#person)
 - [Email](#email)
 - [Name](#name)
+- [Company](#company)
 
-## Build status
-
-[![Build Status](https://travis-ci.org/observing/fullcontact.png?branch=master)](https://travis-ci.org/observing/fullcontact)
+If you want any special endpoints or queries on endpoints implemented feel free to make a PR or an issue!
 
 ## Installation
 
@@ -30,11 +29,9 @@ extensibility and hackibility in mind, there aren't any hidden components and al
 the API endpoints are implemented as separate constructors so they can be
 improved and hacked when needed.
 
-You requirement the module as any other node.js module:
+You require the module as any other node.js module:
 
 ```js
-'use strict';
-
 var FullContact = require('fullcontact');
 
 //
@@ -44,24 +41,28 @@ FullContact.Location;
 FullContact.Person;
 FullContact.Email;
 FullContact.Name;
+FullContact.Company;
 ```
 
 To create a new client you simply need to construct the module with your
 FullContact API key:
 
 ```js
-var fullcontact = new FullContact(api);
+var FullContact = require('fullcontact');
+var fullcontact = new FullContact(apiKey);
 ```
 
 Alternatively you can also use the provided `createClient` method, is that's how
 you roll.
 
 ```js
+var FullContact = require('fullcontact');
 var fullcontact = FullContact.createClient(apikey);
+```
 
-//
-// Or just call it directly:
-//
+Or just call it directly.
+
+```js
 var fullcontact = require('fullcontact').createClient(apikey);
 ```
 
@@ -79,8 +80,7 @@ headers.
 ## Error responses
 
 This API implemention will return an Error object when the FullContact response
-is returned without a `status: 200` so it could be that your operation is queued
-for processing. That's why all returned error's have a `status` property which
+is returned without a `status: 200` or `status: 202` so it could be that your operation is queued for processing. That's why all returned error's have a `status` property which
 the returned status code (unless it's a parse error or a generic error). So just
 because you got an error, it doesn't mean that your request has failed.
 
@@ -91,9 +91,9 @@ Turn your semi-structured data in fully structured location data. This
 arguments.
 
 1. `casing` How is the provided location cased?
-  - `uppercase` for UPPERCASED NAMES  (JOHN SMITH)
-  - `lowercase` for lowercased names  (john smith)
-  - `titlecase` for Title Cased names (John Smith)
+  - `uppercase` for UPPERCASED NAMES  (DENVER, COLORADO)
+  - `lowercase` for lowercased names  (denver, colorado)
+  - `titlecase` for Title Cased names (Denver, Colorado)
 2. `includeZeroPopulation` will display 0 population census locations. The
    provided value should be a boolean.
 
@@ -104,6 +104,13 @@ Normalize the location data.
 ```js
 fullcontact.location.normalize('denver', function (err, data) {
   ..
+});
+```
+With `casing` and `includeZeroPopulation`.
+
+```js
+fullcontact.location.normalize('denver', 'uppercase', true, function (err, data) {
+..
 });
 ```
 
@@ -117,26 +124,43 @@ fullcontact.location.enrich('denver', function (err, data) {
 });
 ```
 
+With `casing` and `includeZeroPopulation`.
+
+```js
+fullcontact.location.enrich('denver', 'uppercase', true, function (err, data) {
+..
+});
+```
+
 ### Person
 
 The `Person` endpoint is confidently namespaced as a `.person` property. 
 Each person API has an optional `queue` argument which you can use to indicate that
-this request will should be pre-processed by FullContact and that you want to
-fetch the details later. According to the API it should to receive the value `1`
-as queue.
+this request will be pre-processed by FullContact and that you want to
+fetch the details later. `queue` should be set to `1` to be enabled.
 
 The following methods are available on this API:
 
 #### person.email(address, [queue], [webhookUrl], [webhookId], fn);
 
 Retrieves contact information by e-mail address.
-Supports the use of webhooks by providing an url and id.
+
 
 ```js
 fullcontact.person.email('foo@bar.com', function (err, data) {
   ..
 });
 ```
+All `Person` API's accept the `queue` param.
+
+```js
+fullcontact.person.email('foo@bar.com', 1, function (err, data) {
+..
+});
+```
+
+Supports the use of webhooks by providing a callback url and an id.
+The id is only to track your webhooks and does nothing else.
 
 ```js
 fullcontact.person.email('foo@bar.com', null, 'https://mycallbackurl.com', 'webhooktracker', function (err, data) {
@@ -220,9 +244,16 @@ fullcontact.name.normalize('John Smith', function (err, data) {
 });
 ```
 
+Using casing.
+```js
+fullcontact.name.normalize('John Smith', 'uppercase', function (err, data) {
+..
+});
+```
+
 #### fullcontact.name.deducer({ email: 'opensource@observe.it' }, [casing], fn);
 
-Name deducing. Unlinke other API's this API should receive an object with either
+Name deducing. Unlike other API's this API should receive an object with either
 an `email` or `username` property which you want to use to substract the
 information.
 
@@ -274,7 +305,30 @@ fullcontact.name.parser('john smith', function (err, data) {
 });
 ```
 
+### Company
+
+Retrieve company info.
+
+#### fullcontact.company.domain('fullcontact.com', [webhookUrl], [webhookId], fn);
+
+Retrieve company info by domain.
+
+```js
+fullcontact.company.domain('fullcontact.com', function (err, data) {
+..
+});
+```
+Supports the use of webhooks by providing a callback url and an id.
+The id is only to track your webhooks and does nothing else.
+
+```js
+fullcontact.company.domain('fullcontact.com', null, 'https://mycallbackurl.com', 'webhooktracker', function (err, data) {
+..
+});
+
 ## Testing
+
+The CI testing happens with a free api key that has limits to the calls it can do to FullContact. If you see the tests fail make sure it is because of failing tests not exeeding rate limit.
 
 The tests are written against the live FullContact API. They can be ran using:
 
