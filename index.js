@@ -62,6 +62,13 @@ FullContact.prototype.process = function req(api, query, args) {
   if (args.webhookId) {
     query.webhookId = args.webhookId;
   }
+  if (args.webhookBody) {
+    query.webhookBody = args.webhookBody;
+  }
+  
+  if (args['style']) {
+    query['style'] = args['style'];
+  }
 
   //
   // The packet that is send to the server or queued when we are in queuing
