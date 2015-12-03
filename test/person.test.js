@@ -47,6 +47,14 @@ describe('FullContact.Person', function () {
 
     it('provides the proper casing');
   });
+  
+  describe('#email with webhook url/id/bodyType/style', function () {
+    it('retrieves data by e-mail and sets up a webhook with the right url and id', function (done) {
+      api.person.email('arnout@observe.it', null, 'http://requestb.in/1bxgb751', 'webhookTest', 'json', 'dictionary', done);
+    });
+
+    it('provides the proper casing');
+  });
 
   describe('#md5', function () {
     var md5 = require('crypto').createHash('md5')
