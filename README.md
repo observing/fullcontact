@@ -189,16 +189,6 @@ fullcontact.person.twitter('3rdEden', function (err, data) {
 });
 ```
 
-#### person.facebook(handle, [queue], fn);
-
-Retrieves contact information by Facebook username.
-
-```js
-fullcontact.person.facebook('john.smith', function (err, data) {
-  ..
-});
-```
-
 #### person.phone(handle, [queue], fn);
 
 Retrieves contact information by phone number.
