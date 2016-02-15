@@ -52,7 +52,7 @@ var FullContact = require('fullcontact');
 var fullcontact = new FullContact(apiKey);
 ```
 
-Alternatively you can also use the provided `createClient` method, is that's how
+Alternatively you can also use the provided `createClient` method, if that's how
 you roll.
 
 ```js
