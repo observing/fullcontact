@@ -77,22 +77,6 @@ describe('FullContact.Person', function () {
     it('provides the proper casing');
   });
 
-  describe('#facebook', function () {
-    it('retrieves data by facebook username', function (done) {
-      api.person.facebook('arnout.kazemier', done);
-    });
-
-    it('provides the proper casing');
-  });
-
-  describe('#facebookId', function () {
-    it('retrieves data by facebook id', function (done) {
-      api.person.facebookId('1844599060', done);
-    });
-
-    it('provides the proper casing');
-  });
-
   describe('#phone', function () {
     it('retrieves data by phone number', function (done) {
       api.person.phone('+13037170414', done);

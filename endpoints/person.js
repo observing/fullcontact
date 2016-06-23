@@ -66,40 +66,6 @@ Person.prototype.twitter = function twitter() {
 };
 
 /**
- * Retrieve contact information by Facebook username.
- *
- * ```js
- * fullcontact.person.facebook('arnout.kazemier', [queue], fn);
- * ```
- *
- * @returns {Person}
- * @api public
- */
-Person.prototype.facebook = function facebook() {
-  var args = this.api.args(arguments, 'queue');
-
-  this.send({ facebookUsername: args.value }, args);
-  return this;
-};
-
-/**
- * Retrieve contact information by Facebook id.
- *
- * ```js
- * fullcontact.person.facebookId('1844599060', [queue], fn);
- * ```
- *
- * @returns {Person}
- * @api public
- */
-Person.prototype.facebookId = function facebook() {
-  var args = this.api.args(arguments, 'queue');
-
-  this.send({ facebookId: args.value }, args);
-  return this;
-};
-
-/**
  * Retrieve contact information by phone number.
  *
  * ```js
