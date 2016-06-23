@@ -317,6 +317,33 @@ fullcontact.company.domain('fullcontact.com', null, 'https://mycallbackurl.com',
 });
 ```
 
+### Batch
+
+API requests can be grouped and sent into a single request.
+
+#### fullcontact.multi();
+
+Activates batch processing mode. The `multi` method returns a new `FullContact` API instance that's internally set to `queuing`. So all api endpoints you would hit are queued until you call the `exec` method.
+
+As per the [batch Process endpoint specs](https://www.fullcontact.com/developer/docs/batch/), up to 20 requests can be grouped in a batch.
+
+#### fullcontact.exec();
+
+Sends the batch request.
+
+Example:
+
+````js
+var multi = fullcontact.multi();
+
+multi.person.facebook('arnout.kazemier', fn);
+multi.person.facebook('john.appleseed', fn);
+
+multi.exec(function (err) {
+  console.log(err);
+})
+````
+
 ## Testing
 
 The CI testing happens with a free api key that has limits to the calls it can do to FullContact. If you see the tests fail make sure it is because of failing tests not exeeding rate limit.
