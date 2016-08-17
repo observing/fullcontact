@@ -1,7 +1,7 @@
 'use strict';
 
 var request = require('request')
-, qs = require('qs');
+, qs = require('querystring');
 
 var slice = Array.prototype.slice;
 
@@ -65,7 +65,7 @@ FullContact.prototype.process = function req(api, query, args) {
   if (args.webhookBody) {
     query.webhookBody = args.webhookBody;
   }
-  
+
   if (args['style']) {
     query['style'] = args['style'];
   }

@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "Fullcontact API bindings",
   "main": "index.js",
-  "keywords": ["fullcontact", "api", "full", "contact"],
+  "keywords": [
+    "fullcontact",
+    "api",
+    "full",
+    "contact"
+  ],
   "scripts": {
     "test": "NODE_ENV=testing ./node_modules/.bin/mocha $(find test -name '*.test.js')",
     "test-travis": "API_KEY=506d9c8a7aafae5a NODE_ENV=testing ./node_modules/.bin/mocha $(find test -name '*.test.js')"
@@ -15,12 +20,11 @@
   "author": "Arnout Kazemier <opensource@observe.it>",
   "license": "MIT",
   "dependencies": {
-    "request": "2.x.x",
-    "qs": "2.x.x"
+    "request": "2.x.x"
   },
   "devDependencies": {
-    "mocha": "2.x.x",
-    "chai": "2.x.x",
+    "mocha": "3.x.x",
+    "chai": "3.x.x",
     "pre-commit": "1.x.x"
   }
 }
