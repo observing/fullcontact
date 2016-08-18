@@ -79,7 +79,7 @@ headers.
 
 ## Error responses
 
-This API implemention will return an Error object when the FullContact response
+This API implementation will return an Error object when the FullContact response
 is returned without a `status: 200` or `status: 202` so it could be that your operation is queued for processing. That's why all returned error's have a `status` property which
 the returned status code (unless it's a parse error or a generic error). So just
 because you got an error, it doesn't mean that your request has failed.
@@ -134,7 +134,7 @@ fullcontact.location.enrich('denver', 'uppercase', true, function (err, data) {
 
 ### Person
 
-The `Person` endpoint is confidently namespaced as a `.person` property. 
+The `Person` endpoint is confidently namespaced as a `.person` property.
 Each person API has an optional `queue` argument which you can use to indicate that
 this request will be pre-processed by FullContact and that you want to
 fetch the details later. `queue` should be set to `1` to be enabled.
@@ -201,13 +201,13 @@ fullcontact.person.phone('+13037170414', function (err, data) {
 
 ### Email
 
-Reduce the number of anonymous subscribers by detecing of the user is
+Reduce the number of anonymous subscribers by detecting if the user is
 subscribing with a real e-mail address or just a one time address The `Email`
 endpoint is namespaced under the `.email` property.
 
 #### email.disposable(email, fn);
 
-Checks if the given e-mail address was disposible.
+Checks if the given e-mail address was disposable.
 
 ```js
 fullcontact.email.disposable('foo@bar.bar', function (err, data) {
@@ -244,7 +244,7 @@ fullcontact.name.normalize('John Smith', 'uppercase', function (err, data) {
 #### fullcontact.name.deducer({ email: 'opensource@observe.it' }, [casing], fn);
 
 Name deducing. Unlike other API's this API should receive an object with either
-an `email` or `username` property which you want to use to substract the
+an `email` or `username` property which you want to use to subtract the
 information.
 
 ```js
@@ -259,7 +259,7 @@ fullcontact.name.deducer({ username: '3rdeden' }, 'lowercase', function (err, da
 
 #### fullcontact.name.similarity('john', 'johnny', [casing], fn);
 
-Check the similairity of between two names.
+Check the similarity of between two names.
 
 ```js
 fullcontact.name.similarity('john', 'johnny', function (err, data) {
@@ -287,7 +287,7 @@ fullcontact.name.stats({ name: 'john' }, function (err, data) {
 
 #### fullcontact.name.parser('john smith', [casing], fn);
 
-Parses the name to determin the likelyhoot that this is really a name.
+Parses the name to determine the likelihood that this is really a name.
 
 ```js
 fullcontact.name.parser('john smith', function (err, data) {
@@ -346,7 +346,7 @@ multi.exec(function (err) {
 
 ## Testing
 
-The CI testing happens with a free api key that has limits to the calls it can do to FullContact. If you see the tests fail make sure it is because of failing tests not exeeding rate limit.
+The CI testing happens with a free api key that has limits to the calls it can do to FullContact. If you see the tests fail make sure it is because of failing tests not exceeding rate limit.
 
 The tests are written against the live FullContact API. They can be ran using:
 
