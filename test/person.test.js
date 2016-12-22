@@ -56,6 +56,14 @@ describe('FullContact.Person', function () {
     it('provides the proper casing');
   });
 
+  describe('#email with webhook url/id/bodyType/style/macromeasures', function () {
+    it('retrieves data by e-mail with macromeasures enabled', function (done) {
+      api.person.email('arnout@observe.it', null, null, null, null, null, true, done);
+    });
+
+    it('provides the proper casing');
+  });
+
   describe('#md5', function () {
     var md5 = require('crypto').createHash('md5')
     .update('arnout@observe.it')

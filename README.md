@@ -164,7 +164,7 @@ fullcontact.person.email('foo@bar.com', 1, function (err, data) {
 The `Person` API's now accept the `macromeasures` param as a boolean
 
 ```js
-fullcontact.person.email('opensource@observe.it', null, null, null, null, null, macromeasures=true, function (err, data) {
+fullcontact.person.email('opensource@observe.it', null, null, null, null, null, true, function (err, data) {
   ..
 });
 ```
