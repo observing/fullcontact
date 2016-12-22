@@ -70,6 +70,10 @@ FullContact.prototype.process = function req(api, query, args) {
     query['style'] = args['style'];
   }
 
+  if(args['macromeasures']) {
+    query['macromeasures'] = args['macromeasures']
+  }
+
   //
   // The packet that is send to the server or queued when we are in queuing
   // mode.

@@ -151,6 +151,7 @@ fullcontact.person.email('foo@bar.com', function (err, data) {
   ..
 });
 ```
+
 All `Person` API's accept the `queue` param.
 
 ```js
@@ -158,6 +159,16 @@ fullcontact.person.email('foo@bar.com', 1, function (err, data) {
 ..
 });
 ```
+
+
+The `Person` API's now accept the `macromeasures` param as a boolean
+
+```js
+fullcontact.person.email('opensource@observe.it', null, null, null, null, null, macromeasures=true, function (err, data) {
+  ..
+});
+```
+
 
 Supports the use of webhooks by providing a callback url and an id.
 The id is only to track your webhooks and does nothing else.
