@@ -160,22 +160,20 @@ fullcontact.person.email('foo@bar.com', 1, function (err, data) {
 });
 ```
 
-
-The `Person` API's now accept the `macromeasures` param as a boolean
-
-```js
-fullcontact.person.email('opensource@observe.it', null, null, null, null, null, true, function (err, data) {
-  ..
-});
-```
-
-
 Supports the use of webhooks by providing a callback url and an id.
 The id is only to track your webhooks and does nothing else.
 
 ```js
 fullcontact.person.email('foo@bar.com', null, 'https://mycallbackurl.com', 'webhooktracker', function (err, data) {
 ..
+});
+```
+
+The `Person` API's now accept the `macromeasures` param as a boolean
+
+```js
+fullcontact.person.email('opensource@observe.it', null, null, null, null, null, true, function (err, data) {
+  ..
 });
 ```
 
