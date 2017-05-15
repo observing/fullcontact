@@ -18,14 +18,14 @@ function Person(api) {
  * Retrieve contact information by e-mail.
  *
  * ```js
- * fullcontact.person.email('opensource@observe.it', [queue], [webhookUrl], [webhookId], [webhookBody], [style], fn);
+ * fullcontact.person.email('opensource@observe.it', [queue], [webhookUrl], [webhookId], [webhookBody], [style], [macromeasures], fn);
  * ```
  *
  * @returns {Person}
  * @api public
  */
 Person.prototype.email = function email() {
-  var args = this.api.args(arguments, 'queue', 'webhookUrl', 'webhookId', 'webhookBody', 'style');
+  var args = this.api.args(arguments, 'queue', 'webhookUrl', 'webhookId', 'webhookBody', 'style', 'macromeasures');
 
   this.send({ email: args.value }, args);
   return this;
