@@ -23,7 +23,7 @@
     "request": "2.x.x"
   },
   "devDependencies": {
-    "mocha": "3.x.x",
+    "mocha": "3.4.1",
     "chai": "3.x.x",
     "pre-commit": "1.x.x"
   }
