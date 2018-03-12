@@ -20,7 +20,7 @@
   "author": "Arnout Kazemier <opensource@observe.it>",
   "license": "MIT",
   "dependencies": {
-    "request": "2.x.x"
+    "request": "^2.85.0"
   },
   "devDependencies": {
     "mocha": "3.x.x",
